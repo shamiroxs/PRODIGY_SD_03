@@ -9,6 +9,22 @@ A Python-based **Simple Contact Management System** built with Pygame. This proj
 
 ---
 
+### 1. **Contact List**  
+A list of all contacts with a search bar for filtering and a button to add new contacts.  
+![Contact List](list.png)
+
+
+### 2. **Add/Edit Contact**  
+Add a new contact or edit an existing one.  
+![Edit Contact](edit.png)
+
+
+### 3. **View Contact**  
+Displays the details of a selected contact with options to edit or delete.  
+![View Contact](view.png)
+
+---
+
 ### **Features**
 1. **View Contacts**  
    - Displays all contacts in alphabetical order.
@@ -48,22 +64,6 @@ A Python-based **Simple Contact Management System** built with Pygame. This proj
 
 3. **Transitions**  
    - Navigate seamlessly between screens (`list`, `add`, `view`) based on your actions.
-
----
-
-### 1. **Contact List**  
-A list of all contacts with a search bar for filtering and a button to add new contacts.  
-![Contact List](list.png)
-
-
-### 2. **Add/Edit Contact**  
-Add a new contact or edit an existing one.  
-![Edit Contact](edit.png)
-
-
-### 3. **View Contact**  
-Displays the details of a selected contact with options to edit or delete.  
-![View Contact](view.png)
 
 ---
 
