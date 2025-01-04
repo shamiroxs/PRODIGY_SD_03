@@ -1,0 +1,9 @@
+1,Arun Kumar,9876543210,arun.kumar@gmail.com
+2,Lakshmi Priya,9123456789,lakshmi.priya@gmail.com
+3,Rahim Ansari,9987654321,rahim.ansari@gmail.com
+4,Christina D'Souza,9898765432,christina.dsouza@gmail.com
+5,Vijay Ramesh,9776543210,vijay.ramesh@gmail.com
+6,Anitha Suresh,9654321098,anitha.suresh@gmail.com
+7,Shafiq Mohammed,9871234560,shafiq.mohammed@gmail.com
+8,Deepak Nair,9345678912,deepak.nair@gmail.com
+9,Mary John,9965432109,mary.john@gmail.com
