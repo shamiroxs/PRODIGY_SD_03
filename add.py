@@ -2,10 +2,8 @@ import pygame
 import sys
 import csv
 
-# Initialize Pygame
 pygame.init()
 
-# Screen Dimensions and Colors
 WIDTH, HEIGHT = 800, 600
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -15,20 +13,16 @@ GREY = (105, 105, 105)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 
-# Fonts
 TITLE_FONT = pygame.font.Font(None, 64)
 TEXT_FONT = pygame.font.Font(None, 36)
 INPUT_FONT = pygame.font.Font(None, 32)
 
-# Screen Setup
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Add/Edit Contact")
 
-# File Paths
 CONTACT_FILE = "contact.txt"
 CURRENT_FILE = "current.txt"
 
-# UI Constants
 BUTTON_WIDTH = 100
 BUTTON_HEIGHT = 40
 TEXT_FIELD_WIDTH = 400
@@ -71,7 +65,6 @@ def save_contact(sino, name, phone, email):
         pass
 
     if sino is not None:
-        # Update existing contact
         for i, row in enumerate(contacts):
             if row[0] == str(sino):
                 contacts[i] = [str(sino), name, phone, email]
@@ -79,7 +72,6 @@ def save_contact(sino, name, phone, email):
                 break
 
     if not contact_exists:
-        # Add new contact
         new_sino = max((int(row[0]) for row in contacts), default=0) + 1
         contacts.append([str(new_sino), name, phone, email])
 
@@ -107,7 +99,6 @@ def main():
     clock = pygame.time.Clock()
     running = True
 
-    # Load current contact (if editing)
     editing_sino = load_current_contact()
     if editing_sino:
         contact = load_contact_by_sino(editing_sino)
@@ -125,19 +116,17 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
-                # Check if the buttons are clicked
                 if cancel_button.collidepoint(mouse_pos):
-                    return "list"  # Return to list
+                    return "list" 
 
                 if save_button.collidepoint(mouse_pos):
-                    if name.strip():  # Ensure the name is not empty
+                    if name.strip():  
                         save_contact(editing_sino, name.strip(), phone.strip(), email.strip())
                         if editing_sino:
                             with open(CURRENT_FILE, "w") as f:
-                                f.write("")  # Clear the current contact file
+                                f.write("")  
                         return "list"
 
-                # Check if text fields are clicked
                 for i, rect in enumerate([name_field, phone_field, email_field]):
                     if rect.collidepoint(mouse_pos):
                         active_field = i
@@ -160,22 +149,18 @@ def main():
                         phone += event.unicode
                     elif active_field == 2:
                         email += event.unicode
-
-        # Draw UI
+                        
         screen.fill(BLACK)
 
-        # Title
         title = "Edit Contact" if editing_sino else "Add Contact"
         title_surface = TITLE_FONT.render(title, True, WHITE)
         title_rect = title_surface.get_rect(center=(WIDTH // 2, 50))
         screen.blit(title_surface, title_rect)
 
-        # Text Fields
         name_field = draw_text_field("Name:", name, 150)
         phone_field = draw_text_field("Phone:", phone, 250)
         email_field = draw_text_field("Email:", email, 350)
 
-        # Buttons
         cancel_button = pygame.Rect(WIDTH // 4 - BUTTON_WIDTH // 2, 500, BUTTON_WIDTH, BUTTON_HEIGHT)
         save_button = pygame.Rect(3 * WIDTH // 4 - BUTTON_WIDTH // 2, 500, BUTTON_WIDTH, BUTTON_HEIGHT)
 
@@ -189,7 +174,6 @@ def main():
             button_rect = button_surface.get_rect(center=button.center)
             screen.blit(button_surface, button_rect)
 
-        # Update display
         pygame.display.flip()
         clock.tick(60)
 
