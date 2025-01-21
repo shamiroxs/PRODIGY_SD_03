@@ -3,10 +3,8 @@ import sys
 import csv
 import os
 
-# Initialize Pygame
 pygame.init()
 
-# Screen Dimensions and Colors
 WIDTH, HEIGHT = 800, 600
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -15,19 +13,15 @@ GREEN = (0, 255, 0)
 CYAN = (0, 255, 255)
 HOVER_COLOR = (0, 200, 200)
 
-# Fonts
 TITLE_FONT = pygame.font.Font(None, 64)
 TEXT_FONT = pygame.font.Font(None, 36)
 
-# Screen Setup
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("View Contact")
 
-# File Paths
 CONTACT_FILE = "contact.txt"
 CURRENT_FILE = "current.txt"
 
-# UI Constants
 BUTTON_WIDTH = 150
 BUTTON_HEIGHT = 50
 
@@ -73,22 +67,19 @@ def main():
     clock = pygame.time.Clock()
     running = True
 
-    # Load current contact
     sino = load_current_contact()
     if not sino:
-        return "list"  # Return to list if no contact is selected
+        return "list"  
 
     contact = load_contact_by_sino(sino)
     if not contact:
-        return "list"  # Return to list if contact not found
+        return "list"  
 
     name, phone, email = contact[1], contact[2], contact[3]
 
-    # Clear the current.txt file
     with open(CURRENT_FILE, "w") as f:
         f.write("")
 
-    # Confirmation state for delete
     deleting = False
 
     while running:
@@ -100,33 +91,27 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if not deleting:
-                    # Handle normal button clicks
                     if back_button.collidepoint(mouse_pos):
-                        return "list"  # Return to list
+                        return "list"  
                     if edit_button.collidepoint(mouse_pos):
-                        # Save the current contact SINO and return to add
                         with open(CURRENT_FILE, "w") as f:
                             f.write(str(sino))
                         return "add"
                     if delete_button.collidepoint(mouse_pos):
-                        deleting = True  # Enter delete confirmation state
+                        deleting = True  
                 else:
-                    # Handle delete confirmation buttons
                     if confirm_button.collidepoint(mouse_pos):
                         delete_contact(sino)
                         return "list"
                     if cancel_button.collidepoint(mouse_pos):
-                        deleting = False  # Cancel delete confirmation
+                        deleting = False  # Cancel delete
 
-        # Draw UI
         screen.fill(BLACK)
 
-        # Title
         title_surface = TITLE_FONT.render(name, True, WHITE)
         title_rect = title_surface.get_rect(center=(WIDTH // 2, 50))
         screen.blit(title_surface, title_rect)
 
-        # Contact Details
         detail_y = 150
         for label, value in [("Phone:", phone), ("Email:", email)]:
             detail_surface = TEXT_FONT.render(f"{label} {value}", True, WHITE)
@@ -134,7 +119,6 @@ def main():
             screen.blit(detail_surface, detail_rect)
             detail_y += 50
 
-        # Buttons
         if not deleting:
             back_button = pygame.Rect(100, HEIGHT - 100, BUTTON_WIDTH, BUTTON_HEIGHT)
             edit_button = pygame.Rect(WIDTH // 2 - BUTTON_WIDTH // 2, HEIGHT - 100, BUTTON_WIDTH, BUTTON_HEIGHT)
@@ -154,7 +138,6 @@ def main():
                 button_rect = button_surface.get_rect(center=button.center)
                 screen.blit(button_surface, button_rect)
         else:
-            # Confirmation UI
             confirm_surface = TEXT_FONT.render("Are you sure you want to delete?", True, WHITE)
             confirm_rect = confirm_surface.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
             screen.blit(confirm_surface, confirm_rect)
@@ -175,7 +158,6 @@ def main():
                 button_rect = button_surface.get_rect(center=button.center)
                 screen.blit(button_surface, button_rect)
 
-        # Update display
         pygame.display.flip()
         clock.tick(60)
 
